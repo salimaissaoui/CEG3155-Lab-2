@@ -1,0 +1,11 @@
+LIBRARY ieee;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity CLA_8bit IS
+	PORT (
+		a,b : IN STD_LOGIC_VECTOR(7 downto 0);
+		cin, GClock, GReset : IN STD_LOGIC;
+		Sum : OUT STD_LOGIC_VECTOR(7 downto 0);
+		CarryOut, zeroOut, OverFlowOut : OUT STD_LOGIC
+	);
+end CLA_8bit;
