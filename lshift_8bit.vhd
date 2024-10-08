@@ -24,7 +24,6 @@ ARCHITECTURE structural OF lshift_8bit IS
 	
    SIGNAL transData : STD_LOGIC_VECTOR(7 downto 0);
 BEGIN
-    -- Shift left by 'n' positions using the 'SLL' operator
     transData <= STD_LOGIC_VECTOR(shift_left(unsigned(data_in),n));
     
   

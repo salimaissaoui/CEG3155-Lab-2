@@ -33,7 +33,6 @@ architecture basic of Multiplier_4bit is
 	signal transitoryMultiplicand, transitoryMultiplier : STD_LOGIC_VECTOR(7 downto 0);
 	signal partialProduct0,partialProduct1,partialProduct2,partialProduct3,partialProduct4,partialProduct5,partialProduct6,partialProduct7 : STD_LOGIC_VECTOR(7 downto 0);
 	signal shiftedProduct0,shiftedProduct1,shiftedProduct2,shiftedProduct3,shiftedProduct4,shiftedProduct5,shiftedProduct6,shiftedProduct7 : STD_LOGIC_VECTOR(7 downto 0);
-	signal AddingCarry_out : STD_LOGIC_VECTOR(6 downto 0);
 	signal finalSum0,finalSum1, finalSum2, finalSum3,finalSum4,finalSum5, finalSum6, check_if_zero : STD_LOGIC_VECTOR(7 downto 0);
 
 begin
@@ -197,7 +196,7 @@ begin
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum0,
-			  CarryOut => AddingCarry_out(0),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		 );
@@ -206,11 +205,11 @@ begin
 		PORT MAP (
 			  a => finalSum0,
 			  b => shiftedProduct2,
-			  cin => AddingCarry_out(0),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum1,
-			  CarryOut => AddingCarry_out(1),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
@@ -219,11 +218,11 @@ begin
 		PORT MAP (
 			  a => finalSum1,
 			  b => shiftedProduct3,
-			  cin => AddingCarry_out(1),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum2,
-			  CarryOut => AddingCarry_out(2),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
@@ -232,11 +231,11 @@ begin
 		PORT MAP (
 			  a => finalSum2,
 			  b => shiftedProduct4,
-			  cin => AddingCarry_out(2),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum3,
-			  CarryOut => AddingCarry_out(3),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
@@ -245,11 +244,11 @@ begin
 		PORT MAP (
 			  a => finalSum3,
 			  b => shiftedProduct5,
-			  cin => AddingCarry_out(3),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum4,
-			  CarryOut => AddingCarry_out(4),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
@@ -258,11 +257,11 @@ begin
 		PORT MAP (
 			  a => finalSum4,
 			  b => shiftedProduct6,
-			  cin => AddingCarry_out(4),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum5,
-			  CarryOut => AddingCarry_out(5),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
@@ -271,17 +270,17 @@ begin
 		PORT MAP (
 			  a => finalSum5,
 			  b => shiftedProduct7,
-			  cin => AddingCarry_out(5),  
+			  cin => '0',  
 			  GClock => GClock,
 			  GReset => GReset,
 			  Sum => finalSum6,
-			  CarryOut => AddingCarry_out(6),  -- Capture carry out
+			  CarryOut => open,  
 			  zeroOut => open,
 			  OverFlowOut => open
 		);
 	
 	Sum <= finalSum6;
-	CarryOut <= AddingCarry_out(6);
+	CarryOut <= '0';
 	OverFlowOut <= '0';
 	
 	check_if_zero <= NOT finalSum6;
