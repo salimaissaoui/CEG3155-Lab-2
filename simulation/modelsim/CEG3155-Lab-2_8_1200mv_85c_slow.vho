@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition"
 
--- DATE "10/08/2024 00:57:51"
+-- DATE "10/08/2024 20:59:58"
 
 -- 
 -- Device: Altera EP4CE115F29C8 Package FBGA780
@@ -31,7 +31,7 @@ LIBRARY IEEE;
 USE CYCLONEIVE.CYCLONEIVE_COMPONENTS.ALL;
 USE IEEE.STD_LOGIC_1164.ALL;
 
-ENTITY 	Multiplier_4bit IS
+ENTITY 	Divider_4bit IS
     PORT (
 	a : IN std_logic_vector(3 DOWNTO 0);
 	b : IN std_logic_vector(3 DOWNTO 0);
@@ -42,33 +42,33 @@ ENTITY 	Multiplier_4bit IS
 	zeroOut : OUT std_logic;
 	OverFlowOut : OUT std_logic
 	);
-END Multiplier_4bit;
+END Divider_4bit;
 
 -- Design Ports Information
--- GReset	=>  Location: PIN_AE6,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[0]	=>  Location: PIN_M1,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[1]	=>  Location: PIN_K7,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[2]	=>  Location: PIN_L7,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[3]	=>  Location: PIN_L1,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[4]	=>  Location: PIN_L8,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[5]	=>  Location: PIN_L6,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[6]	=>  Location: PIN_K8,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- Sum[7]	=>  Location: PIN_M5,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- CarryOut	=>  Location: PIN_P2,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- zeroOut	=>  Location: PIN_J7,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- OverFlowOut	=>  Location: PIN_J22,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- a[3]	=>  Location: PIN_M2,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- b[0]	=>  Location: PIN_N4,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- a[0]	=>  Location: PIN_P1,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- a[1]	=>  Location: PIN_M7,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- a[2]	=>  Location: PIN_L2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- GReset	=>  Location: PIN_B11,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[0]	=>  Location: PIN_AF5,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[1]	=>  Location: PIN_AE5,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[2]	=>  Location: PIN_AD7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[3]	=>  Location: PIN_AH3,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[4]	=>  Location: PIN_Y10,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[5]	=>  Location: PIN_AH4,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[6]	=>  Location: PIN_AF3,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- Sum[7]	=>  Location: PIN_AF6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- CarryOut	=>  Location: PIN_G9,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- zeroOut	=>  Location: PIN_AH19,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- OverFlowOut	=>  Location: PIN_AD11,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- a[0]	=>  Location: PIN_AH6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- a[3]	=>  Location: PIN_AC7,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- b[3]	=>  Location: PIN_AG6,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- a[1]	=>  Location: PIN_AB9,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- a[2]	=>  Location: PIN_AB8,	 I/O Standard: 2.5 V,	 Current Strength: Default
 -- GClock	=>  Location: PIN_J1,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- b[2]	=>  Location: PIN_N3,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- b[1]	=>  Location: PIN_N8,	 I/O Standard: 2.5 V,	 Current Strength: Default
--- b[3]	=>  Location: PIN_M8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- b[0]	=>  Location: PIN_AG4,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- b[1]	=>  Location: PIN_AD8,	 I/O Standard: 2.5 V,	 Current Strength: Default
+-- b[2]	=>  Location: PIN_AD10,	 I/O Standard: 2.5 V,	 Current Strength: Default
 
 
-ARCHITECTURE structure OF Multiplier_4bit IS
+ARCHITECTURE structure OF Divider_4bit IS
 SIGNAL gnd : std_logic := '0';
 SIGNAL vcc : std_logic := '1';
 SIGNAL unknown : std_logic := 'X';
@@ -101,354 +101,102 @@ SIGNAL \zeroOut~output_o\ : std_logic;
 SIGNAL \OverFlowOut~output_o\ : std_logic;
 SIGNAL \GClock~input_o\ : std_logic;
 SIGNAL \GClock~inputclkctrl_outclk\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \b[2]~input_o\ : std_logic;
-SIGNAL \a[3]~input_o\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \b[1]~input_o\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \b[0]~input_o\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \a[2]~input_o\ : std_logic;
-SIGNAL \a[1]~input_o\ : std_logic;
-SIGNAL \a[0]~input_o\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0_combout\ : std_logic;
 SIGNAL \b[3]~input_o\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
-SIGNAL \zeroOut~0_combout\ : std_logic;
-SIGNAL \zeroOut~1_combout\ : std_logic;
-SIGNAL \zeroOut~2_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal\ : std_logic_vector(7 DOWNTO 0);
-SIGNAL shiftedProduct0 : std_logic_vector(7 DOWNTO 0);
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
-SIGNAL \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
+SIGNAL \b[0]~input_o\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selB|d_out[0]~0_combout\ : std_logic;
+SIGNAL \a[1]~input_o\ : std_logic;
+SIGNAL \a[3]~input_o\ : std_logic;
+SIGNAL \a[0]~input_o\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selA|d_out[1]~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selA|d_out[0]~0_combout\ : std_logic;
+SIGNAL \b[1]~input_o\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selB|d_out[1]~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|transitorySignal[1]~4_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \a[2]~input_o\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \b[2]~input_o\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selB|d_out[2]~2_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|transitorySignal[2]~6_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|transitoryC[2]~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_selA|d_out[2]~2_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|transitorySignal[3]~5_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~4_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\ : std_logic;
+SIGNAL \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|transitoryC~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[0]~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[0]~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[1]~2_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[1]~3_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[2]~4_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[2]~5_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[3]~6_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ : std_logic;
+SIGNAL \mux_2to1_4bit_Remainder|d_out[3]~7_combout\ : std_logic;
+SIGNAL \CLA_4bit_inst1|transitorySignal\ : std_logic_vector(7 DOWNTO 0);
+SIGNAL \CLA_4bit_inst2|transitorySignal\ : std_logic_vector(7 DOWNTO 0);
+SIGNAL \counter_4bit_inst|CLA_4bit_inst|transitorySignal\ : std_logic_vector(7 DOWNTO 0);
+SIGNAL \CLA_4bit_inst0|transitorySignal\ : std_logic_vector(7 DOWNTO 0);
+SIGNAL \mux_2to1_4bit_selA|and2\ : std_logic_vector(3 DOWNTO 0);
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
+SIGNAL \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ : std_logic;
 
 BEGIN
 
@@ -465,16 +213,12 @@ ww_devclrn <= devclrn;
 ww_devpor <= devpor;
 
 \GClock~inputclkctrl_INCLK_bus\ <= (vcc & vcc & vcc & \GClock~input_o\);
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\;
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\;
+\counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\;
+\counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\;
+\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\;
+\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\ <= NOT \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\;
 
--- Location: IOOBUF_X0_Y44_N23
+-- Location: IOOBUF_X5_Y0_N16
 \Sum[0]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -482,11 +226,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\,
 	devoe => ww_devoe,
 	o => \Sum[0]~output_o\);
 
--- Location: IOOBUF_X0_Y49_N9
+-- Location: IOOBUF_X5_Y0_N23
 \Sum[1]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -494,11 +238,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\,
 	devoe => ww_devoe,
 	o => \Sum[1]~output_o\);
 
--- Location: IOOBUF_X0_Y47_N16
+-- Location: IOOBUF_X3_Y0_N2
 \Sum[2]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -506,11 +250,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\,
 	devoe => ww_devoe,
 	o => \Sum[2]~output_o\);
 
--- Location: IOOBUF_X0_Y44_N9
+-- Location: IOOBUF_X5_Y0_N9
 \Sum[3]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -518,11 +262,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\,
 	devoe => ww_devoe,
 	o => \Sum[3]~output_o\);
 
--- Location: IOOBUF_X0_Y48_N9
+-- Location: IOOBUF_X7_Y0_N9
 \Sum[4]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -530,11 +274,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \mux_2to1_4bit_Remainder|d_out[0]~1_combout\,
 	devoe => ww_devoe,
 	o => \Sum[4]~output_o\);
 
--- Location: IOOBUF_X0_Y47_N23
+-- Location: IOOBUF_X9_Y0_N16
 \Sum[5]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -542,11 +286,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \mux_2to1_4bit_Remainder|d_out[1]~3_combout\,
 	devoe => ww_devoe,
 	o => \Sum[5]~output_o\);
 
--- Location: IOOBUF_X0_Y48_N2
+-- Location: IOOBUF_X7_Y0_N23
 \Sum[6]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -554,11 +298,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \mux_2to1_4bit_Remainder|d_out[2]~5_combout\,
 	devoe => ww_devoe,
 	o => \Sum[6]~output_o\);
 
--- Location: IOOBUF_X0_Y47_N2
+-- Location: IOOBUF_X7_Y0_N16
 \Sum[7]~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -566,11 +310,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|ALT_INV_int_q~0_combout\,
+	i => \mux_2to1_4bit_Remainder|d_out[3]~7_combout\,
 	devoe => ww_devoe,
 	o => \Sum[7]~output_o\);
 
--- Location: IOOBUF_X0_Y43_N16
+-- Location: IOOBUF_X13_Y73_N23
 \CarryOut~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -578,11 +322,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\,
+	i => GND,
 	devoe => ww_devoe,
 	o => \CarryOut~output_o\);
 
--- Location: IOOBUF_X0_Y49_N2
+-- Location: IOOBUF_X72_Y0_N2
 \zeroOut~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -590,11 +334,11 @@ GENERIC MAP (
 	open_drain_output => "false")
 -- pragma translate_on
 PORT MAP (
-	i => \zeroOut~2_combout\,
+	i => GND,
 	devoe => ww_devoe,
 	o => \zeroOut~output_o\);
 
--- Location: IOOBUF_X115_Y67_N16
+-- Location: IOOBUF_X49_Y0_N2
 \OverFlowOut~output\ : cycloneive_io_obuf
 -- pragma translate_off
 GENERIC MAP (
@@ -630,1256 +374,7 @@ PORT MAP (
 	devpor => ww_devpor,
 	outclk => \GClock~inputclkctrl_outclk\);
 
--- Location: LCCOMB_X4_Y36_N10
-\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X4_Y36_N2
-\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y36_N0
-\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X4_Y36_N24
-\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y36_N12
-\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X5_Y36_N2
-\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: IOIBUF_X0_Y46_N22
-\b[2]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_b(2),
-	o => \b[2]~input_o\);
-
--- Location: IOIBUF_X0_Y44_N15
-\a[3]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_a(3),
-	o => \a[3]~input_o\);
-
--- Location: LCCOMB_X6_Y44_N18
-\lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[2]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[2]~input_o\,
-	datab => \lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datac => \a[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N6
-\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: IOIBUF_X0_Y42_N8
-\b[1]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_b(1),
-	o => \b[1]~input_o\);
-
--- Location: LCCOMB_X10_Y43_N26
-\lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[1]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[1]~input_o\,
-	datab => \lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datac => \a[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N0
-\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: IOIBUF_X0_Y46_N15
-\b[0]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_b(0),
-	o => \b[0]~input_o\);
-
--- Location: LCCOMB_X9_Y43_N0
-\shiftedProduct0[6]\ : cycloneive_lcell_comb
--- Equation(s):
--- shiftedProduct0(6) = (\a[3]~input_o\ & \b[0]~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \a[3]~input_o\,
-	datad => \b[0]~input_o\,
-	combout => shiftedProduct0(6));
-
--- Location: LCCOMB_X10_Y43_N20
-\lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[1]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[1]~input_o\,
-	datab => \lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datac => \a[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N26
-\lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: IOIBUF_X0_Y44_N1
-\a[2]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_a(2),
-	o => \a[2]~input_o\);
-
--- Location: IOIBUF_X0_Y45_N22
-\a[1]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_a(1),
-	o => \a[1]~input_o\);
-
--- Location: IOIBUF_X0_Y42_N1
-\a[0]~input\ : cycloneive_io_ibuf
--- pragma translate_off
-GENERIC MAP (
-	bus_hold => "false",
-	simulate_z_as => "z")
--- pragma translate_on
-PORT MAP (
-	i => ww_a(0),
-	o => \a[0]~input_o\);
-
--- Location: LCCOMB_X9_Y43_N20
-\lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[0]~input_o\)) # 
--- (!\b[1]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[1]~input_o\,
-	datab => \lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \a[0]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N14
-\lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N8
-\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X7_Y43_N30
-\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N24
-\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\ = (\b[0]~input_o\ & (!\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & \a[0]~input_o\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000101000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[0]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \a[0]~input_o\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N26
-\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\ = (\lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (\b[0]~input_o\ & (\a[1]~input_o\ & \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\))) # 
--- (!\lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\) # ((\b[0]~input_o\ & \a[1]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1000111100001000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[0]~input_o\,
-	datab => \a[1]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X9_Y43_N14
-\lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[1]~input_o\)) # 
--- (!\b[1]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[1]~input_o\,
-	datab => \lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \a[1]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N16
-\lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N12
-\CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\ = (\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\ & (((\b[0]~input_o\ & \a[2]~input_o\)) # (!\lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))) # 
--- (!\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\ & (\b[0]~input_o\ & (\a[2]~input_o\ & !\lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1000000011111000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[0]~input_o\,
-	datab => \a[2]~input_o\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	datad => \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N22
-\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[1]\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal\(1) = \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ $ (((\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & (shiftedProduct0(6) & 
--- !\CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\)) # (!\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & (!shiftedProduct0(6) & \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1110000101111000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datab => shiftedProduct0(6),
-	datac => \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal\(1));
-
--- Location: LCCOMB_X10_Y43_N28
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal\(1)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal\(1),
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N16
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N6
-\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\ = \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\ $ (((\a[3]~input_o\ & \b[0]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[3]~input_o\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \b[0]~input_o\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\);
-
--- Location: LCCOMB_X9_Y43_N4
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\ $ (((\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N8
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N10
-\lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[2]~input_o\) # (!\b[2]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datab => \b[2]~input_o\,
-	datac => \a[2]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N30
-\lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N28
-\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2_combout\ = \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (((\a[2]~input_o\ & \b[0]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101101010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \a[2]~input_o\,
-	datad => \b[0]~input_o\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X9_Y43_N30
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2_combout\ $ (\CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[2]~2_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N28
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N2
-\lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[2]~input_o\)) # 
--- (!\a[0]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[0]~input_o\,
-	datab => \lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \b[2]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N10
-\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N12
-\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3_combout\ = (\b[0]~input_o\ & (\a[1]~input_o\ $ (((\a[0]~input_o\ & !\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100011000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[0]~input_o\,
-	datab => \a[1]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \b[0]~input_o\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3_combout\);
-
--- Location: LCCOMB_X8_Y43_N4
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ ((\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001100110",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[1]~3_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N6
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N18
-\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X8_Y43_N12
-\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N14
-\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y43_N20
-\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N16
-\lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[1]~input_o\)) # 
--- (!\a[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[3]~input_o\,
-	datab => \lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datac => \b[1]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N0
-\lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N6
-\CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\ = (shiftedProduct0(6) & (((\CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\) # (!\lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)) # 
--- (!\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))) # (!shiftedProduct0(6) & (!\lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & (!\lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101100101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => shiftedProduct0(6),
-	datab => \lshift_8bit1|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N14
-\CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\ = (\lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (\b[0]~input_o\ & (\a[3]~input_o\ & \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\))) # 
--- (!\lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\) # ((\b[0]~input_o\ & \a[3]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1000111100001000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[0]~input_o\,
-	datab => \a[3]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\);
-
--- Location: LCCOMB_X9_Y43_N24
-\shiftedProduct0[0]\ : cycloneive_lcell_comb
--- Equation(s):
--- shiftedProduct0(0) = (\a[0]~input_o\ & \b[0]~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \a[0]~input_o\,
-	datad => \b[0]~input_o\,
-	combout => shiftedProduct0(0));
-
--- Location: LCCOMB_X9_Y43_N18
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((shiftedProduct0(0) $ (\lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => shiftedProduct0(0),
-	datac => \lshift_8bit1|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N22
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N20
-\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\ = (\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\ & 
--- !\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)) # (!\lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\) # 
--- (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011000011110011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N18
-\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\ = (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\) # 
--- (!\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\))) # (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- !\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010000011111010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N28
-\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\ = (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\) # 
--- (\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\))) # (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110011000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\);
-
--- Location: LCCOMB_X7_Y43_N10
-\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\ = (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & 
--- !\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\)) # (!\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((!\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\) # 
--- (!\lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000001100111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~1_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\);
-
--- Location: LCCOMB_X6_Y44_N16
-\lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[2]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[2]~input_o\,
-	datab => \lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datac => \a[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N2
-\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N2
-\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\ = (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\ & 
--- !\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)) # (!\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\) # 
--- (!\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101000011110101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\);
-
--- Location: LCCOMB_X9_Y43_N26
-\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0_combout\ = \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ $ (((\a[3]~input_o\ & \b[0]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[3]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \b[0]~input_o\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N8
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\ $ (((\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|transitoryC[2]~0_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[2]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N20
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N20
-\CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\ = (\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\ & 
--- !\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)) # (!\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\) # 
--- (!\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0100110101001101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N28
-\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0_combout\ = \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N14
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\ $ ((!\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[0]~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N18
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N20
-\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y43_N12
-\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N22
-\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0_combout\ = \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N4
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\ $ (((!\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[0]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N10
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N30
-\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0_combout\ = \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0_combout\);
-
--- Location: IOIBUF_X0_Y45_N15
+-- Location: IOIBUF_X11_Y0_N22
 \b[3]~input\ : cycloneive_io_ibuf
 -- pragma translate_off
 GENERIC MAP (
@@ -1890,79 +385,38 @@ PORT MAP (
 	i => ww_b(3),
 	o => \b[3]~input_o\);
 
--- Location: LCCOMB_X6_Y42_N30
-\lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: IOIBUF_X9_Y0_N22
+\b[0]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_b(0),
+	o => \b[0]~input_o\);
+
+-- Location: LCCOMB_X11_Y1_N20
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[3]~input_o\)) # 
--- (!\a[3]~input_o\)))
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & ((!\b[0]~input_o\)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1100110001011111",
+	lut_mask => "1100110000001111",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \a[3]~input_o\,
-	datab => \lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datac => \b[3]~input_o\,
+	datab => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datac => \b[0]~input_o\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X6_Y43_N12
-\lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X10_Y1_N18
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N4
-\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2_combout\ = \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X6_Y44_N30
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\ $ (!\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[2]~3_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[2]~2_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N14
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -1970,204 +424,376 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X6_Y42_N8
-\lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X10_Y1_N30
+\mux_2to1_4bit_selB|d_out[0]~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[3]~input_o\)) # 
--- (!\a[2]~input_o\)))
+-- \mux_2to1_4bit_selB|d_out[0]~0_combout\ = (\b[3]~input_o\ & ((!\CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))) # (!\b[3]~input_o\ & (\b[0]~input_o\))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1100110001011111",
+	lut_mask => "0011000011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \b[3]~input_o\,
+	datac => \b[0]~input_o\,
+	datad => \CLA_4bit_inst1|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selB|d_out[0]~0_combout\);
+
+-- Location: IOIBUF_X11_Y0_N8
+\a[1]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_a(1),
+	o => \a[1]~input_o\);
+
+-- Location: IOIBUF_X9_Y0_N1
+\a[3]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_a(3),
+	o => \a[3]~input_o\);
+
+-- Location: IOIBUF_X11_Y0_N15
+\a[0]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_a(0),
+	o => \a[0]~input_o\);
+
+-- Location: LCCOMB_X12_Y1_N20
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\a[0]~input_o\ $ 
+-- (((!\a[1]~input_o\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100110010100101",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \a[0]~input_o\,
+	datab => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datac => \a[1]~input_o\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X11_Y1_N28
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010101010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X11_Y1_N2
+\mux_2to1_4bit_selA|d_out[1]~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_selA|d_out[1]~1_combout\ = (\a[3]~input_o\ & ((!\CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))) # (!\a[3]~input_o\ & (\a[1]~input_o\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000110011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \a[1]~input_o\,
+	datac => \a[3]~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selA|d_out[1]~1_combout\);
+
+-- Location: LCCOMB_X11_Y1_N26
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & ((!\a[0]~input_o\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101000001111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datac => \a[0]~input_o\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X11_Y1_N18
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X11_Y1_N8
+\mux_2to1_4bit_selA|d_out[0]~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_selA|d_out[0]~0_combout\ = (\a[3]~input_o\ & ((!\CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))) # (!\a[3]~input_o\ & (\a[0]~input_o\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0011000011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \a[3]~input_o\,
+	datac => \a[0]~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selA|d_out[0]~0_combout\);
+
+-- Location: IOIBUF_X9_Y0_N8
+\b[1]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_b(1),
+	o => \b[1]~input_o\);
+
+-- Location: LCCOMB_X9_Y1_N14
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\b[0]~input_o\ $ 
+-- (((!\b[1]~input_o\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100110010100101",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \b[0]~input_o\,
+	datab => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datac => \b[1]~input_o\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X10_Y1_N16
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X10_Y1_N20
+\mux_2to1_4bit_selB|d_out[1]~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_selB|d_out[1]~1_combout\ = (\b[3]~input_o\ & ((!\CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))) # (!\b[3]~input_o\ & (\b[1]~input_o\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0011000011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \b[3]~input_o\,
+	datac => \b[1]~input_o\,
+	datad => \CLA_4bit_inst1|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selB|d_out[1]~1_combout\);
+
+-- Location: LCCOMB_X9_Y1_N4
+\CLA_4bit_inst2|transitorySignal[1]~4\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|transitorySignal[1]~4_combout\ = \mux_2to1_4bit_selA|d_out[1]~1_combout\ $ (\mux_2to1_4bit_selB|d_out[1]~1_combout\ $ (((\mux_2to1_4bit_selA|d_out[0]~0_combout\) # (!\mux_2to1_4bit_selB|d_out[0]~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100011000111001",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \mux_2to1_4bit_selB|d_out[0]~0_combout\,
+	datab => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \mux_2to1_4bit_selB|d_out[1]~1_combout\,
+	combout => \CLA_4bit_inst2|transitorySignal[1]~4_combout\);
+
+-- Location: LCCOMB_X9_Y1_N30
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\CLA_4bit_inst2|transitorySignal[1]~4_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011110000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|transitorySignal[1]~4_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N16
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N22
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\mux_2to1_4bit_selA|d_out[0]~0_combout\ $ (!\mux_2to1_4bit_selB|d_out[0]~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datab => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datac => \mux_2to1_4bit_selB|d_out[0]~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N6
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010101010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X10_Y1_N26
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\ = (\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\mux_2to1_4bit_selB|d_out[1]~1_combout\ & ((!\mux_2to1_4bit_selB|d_out[0]~0_combout\) # 
+-- (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))) # (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (((!\mux_2to1_4bit_selB|d_out[1]~1_combout\) # (!\mux_2to1_4bit_selB|d_out[0]~0_combout\)) # 
+-- (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0001010101111111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \mux_2to1_4bit_selB|d_out[0]~0_combout\,
+	datad => \mux_2to1_4bit_selB|d_out[1]~1_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\);
+
+-- Location: IOIBUF_X11_Y0_N1
+\a[2]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_a(2),
+	o => \a[2]~input_o\);
+
+-- Location: LCCOMB_X12_Y1_N2
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (!\GClock~input_o\ & (\a[2]~input_o\ $ (((\a[1]~input_o\) # (\a[0]~input_o\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0001000100010010",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
 	dataa => \a[2]~input_o\,
-	datab => \lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datac => \b[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\);
+	datab => \GClock~input_o\,
+	datac => \a[1]~input_o\,
+	datad => \a[0]~input_o\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X6_Y43_N20
-\lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X12_Y1_N8
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ = (!\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\) # (!\GClock~input_o\)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1111000011001100",
+	lut_mask => "0011001100000011",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
+	datab => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datac => \GClock~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\);
 
--- Location: LCCOMB_X6_Y44_N10
-\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N6
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1_combout\ = \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X6_Y44_N24
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1_combout\ $ (((!\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[1]~1_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N22
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X11_Y43_N0
-\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\ = (\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\)) # (!\lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X11_Y43_N10
-\CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\ = (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\)) # (!\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\) # 
--- (!\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N2
-\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X10_Y43_N10
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\ $ (!\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N18
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N22
-\lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[3]~input_o\) # (!\a[1]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datab => \a[1]~input_o\,
-	datac => \b[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N12
-\lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2175,1299 +801,146 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X5_Y36_N10
-\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
+-- Location: IOIBUF_X13_Y0_N22
+\b[2]~input\ : cycloneive_io_ibuf
+-- pragma translate_off
+GENERIC MAP (
+	bus_hold => "false",
+	simulate_z_as => "z")
+-- pragma translate_on
+PORT MAP (
+	i => ww_b(2),
+	o => \b[2]~input_o\);
+
+-- Location: LCCOMB_X12_Y1_N22
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ = (\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (!\GClock~input_o\ & (\b[2]~input_o\ $ (((\b[1]~input_o\) # (\b[0]~input_o\)))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1010101011111111",
+	lut_mask => "0000000100001110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\);
+	dataa => \b[1]~input_o\,
+	datab => \b[0]~input_o\,
+	datac => \GClock~input_o\,
+	datad => \b[2]~input_o\,
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X5_Y36_N16
-\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X12_Y1_N12
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ = (!\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ & ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\) # (!\GClock~input_o\)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1111110000001100",
+	lut_mask => "0101010100000101",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	dataa => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datac => \GClock~input_o\,
+	datad => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\);
 
--- Location: LCCOMB_X11_Y43_N22
-\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N10
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2_combout\ = \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0101101001011010",
+	lut_mask => "1111000010101010",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X11_Y43_N4
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2_combout\ $ ((!\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[2]~2_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	dataa => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N12
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N0
+\mux_2to1_4bit_selB|d_out[2]~2\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
+-- \mux_2to1_4bit_selB|d_out[2]~2_combout\ = (\b[3]~input_o\ & ((!\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))) # (!\b[3]~input_o\ & (\b[2]~input_o\))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1010101011110000",
+	lut_mask => "0010001011101110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	dataa => \b[2]~input_o\,
+	datab => \b[3]~input_o\,
+	datad => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selB|d_out[2]~2_combout\);
 
--- Location: LCCOMB_X11_Y43_N12
-\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N22
+\CLA_4bit_inst2|transitorySignal[2]~6\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1_combout\ = \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
+-- \CLA_4bit_inst2|transitorySignal[2]~6_combout\ = \mux_2to1_4bit_selB|d_out[2]~2_combout\ $ (((\a[3]~input_o\ & (!\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)) # (!\a[3]~input_o\ & ((\a[2]~input_o\)))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0011110000111100",
+	lut_mask => "1010001101011100",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X11_Y43_N6
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\ $ (((!\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[1]~1_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X8_Y43_N24
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y36_N2
-\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X7_Y36_N0
-\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N16
-\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\ = (\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\) # 
--- (!\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\))) # (!\lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- !\CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010000011111010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_upper|transitoryC[1]~2_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X7_Y43_N22
-\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\ = (\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\) # 
--- (\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\))) # (!\lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110011000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\);
-
--- Location: LCCOMB_X7_Y43_N0
-\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\ = (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- !\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\)) # (!\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((!\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\) # 
--- (!\lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0001011100010111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit3|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~1_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\);
-
--- Location: LCCOMB_X7_Y43_N2
-\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\ = (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\)) # (!\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\) # 
--- (!\lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\);
-
--- Location: LCCOMB_X7_Y43_N4
-\CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\ = (\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\)) # (!\lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\) # 
--- (!\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N24
-\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\ = (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\)) # (!\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\) # 
--- (!\lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N10
-\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\ = (\lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\)) # (!\lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X6_Y43_N28
-\CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\ = (\lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\)) # (!\lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\) # 
--- (!\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N20
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0_combout\ $ (((!\CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[0]~0_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y42_N0
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N10
-\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\ = (\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X1_Y43_N0
-\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y42_N22
-\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0_combout\ = \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N6
-\lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[2]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
 	datab => \a[2]~input_o\,
-	datac => \lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
+	datac => \a[3]~input_o\,
+	datad => \mux_2to1_4bit_selB|d_out[2]~2_combout\,
+	combout => \CLA_4bit_inst2|transitorySignal[2]~6_combout\);
 
--- Location: LCCOMB_X1_Y42_N14
-\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X10_Y1_N14
+\CLA_4bit_inst2|transitoryC[2]~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)))
+-- \CLA_4bit_inst2|transitoryC[2]~0_combout\ = (\mux_2to1_4bit_selB|d_out[1]~1_combout\ & (\mux_2to1_4bit_selA|d_out[1]~1_combout\ & ((\mux_2to1_4bit_selA|d_out[0]~0_combout\) # (!\mux_2to1_4bit_selB|d_out[0]~0_combout\)))) # 
+-- (!\mux_2to1_4bit_selB|d_out[1]~1_combout\ & (((\mux_2to1_4bit_selA|d_out[0]~0_combout\) # (\mux_2to1_4bit_selA|d_out[1]~1_combout\)) # (!\mux_2to1_4bit_selB|d_out[0]~0_combout\)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1010101011110000",
+	lut_mask => "1111011100110001",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
+	dataa => \mux_2to1_4bit_selB|d_out[0]~0_combout\,
+	datab => \mux_2to1_4bit_selB|d_out[1]~1_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	combout => \CLA_4bit_inst2|transitoryC[2]~0_combout\);
 
--- Location: LCCOMB_X6_Y43_N4
-\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N30
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2_combout\ = \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst2|transitorySignal[2]~6_combout\ $ (((\CLA_4bit_inst2|transitoryC[2]~0_combout\)))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0000111111110000",
+	lut_mask => "1100010111001010",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit3|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X6_Y43_N26
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\ $ (((!\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[2]~2_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N0
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N4
-\lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[1]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \a[1]~input_o\,
-	datac => \lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N14
-\lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y43_N8
-\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1_combout\ = \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit3|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X6_Y43_N30
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1_combout\ $ (((!\CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[1]~1_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N28
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N10
-\lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[0]~input_o\) # (!\b[3]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datab => \b[3]~input_o\,
-	datac => \a[0]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N8
-\lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst4|masterLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N20
-\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N10
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\ $ (!\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N2
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y36_N20
-\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ = (\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N14
-\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	dataa => \CLA_4bit_inst2|transitorySignal[2]~6_combout\,
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
 	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	datad => \CLA_4bit_inst2|transitoryC[2]~0_combout\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N0
-\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N12
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2_combout\ = \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X10_Y43_N30
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\ $ ((!\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[2]~3_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[2]~2_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X10_Y43_N2
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y36_N6
-\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X5_Y36_N0
-\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X7_Y44_N0
-\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1_combout\ = \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit3|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X7_Y44_N6
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1_combout\ $ (!\CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[1]~1_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|transitoryC[1]~2_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N28
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N16
-\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\ = (\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N6
-\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\ = (\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111011100010001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X5_Y43_N0
-\CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\ = (\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N14
-\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\ = (\lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N28
-\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\ = (\lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111000101110001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X1_Y42_N4
-\CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\ = (\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\)) # (!\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\) # 
--- (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X1_Y42_N28
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0_combout\ $ (((!\CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[0]~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N8
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N20
-\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1_combout\ = \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101101001011010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1_combout\);
-
--- Location: LCCOMB_X5_Y44_N22
-\lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[1]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \a[1]~input_o\,
-	datac => \lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N0
-\lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit5|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y42_N12
-\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2_combout\ = \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011110000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X1_Y42_N2
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\ $ (((!\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[2]~2_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N10
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N28
-\lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[0]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datac => \a[0]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N22
-\lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst5|masterLatch|int_q~0_combout\,
-	datab => \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N18
-\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1_combout\ = \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011110000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X5_Y42_N26
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1_combout\ $ (!\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[1]~1_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N12
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N16
-\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011110000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N8
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\ $ (((!\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N0
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N16
-\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ = (\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N0
-\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N10
-\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2_combout\ = \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit4|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X5_Y44_N20
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2_combout\ $ ((!\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[2]~2_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y44_N28
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y36_N2
-\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ = (\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N12
-\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -3475,716 +948,66 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
 	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	datad => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X5_Y42_N20
-\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N4
+\mux_2to1_4bit_selA|d_out[2]~2\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1_combout\ = \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
+-- \mux_2to1_4bit_selA|d_out[2]~2_combout\ = (\a[3]~input_o\ & ((!\CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))) # (!\a[3]~input_o\ & (\a[2]~input_o\))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0011001111001100",
+	lut_mask => "0000110011111100",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1_combout\);
+	datab => \a[2]~input_o\,
+	datac => \a[3]~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selA|d_out[2]~2_combout\);
 
--- Location: LCCOMB_X5_Y42_N30
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N14
+\CLA_4bit_inst1|transitorySignal[3]\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1_combout\ $ (!\CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\))))
+-- \CLA_4bit_inst1|transitorySignal\(3) = \b[3]~input_o\ $ (((\b[2]~input_o\) # ((\b[1]~input_o\) # (\b[0]~input_o\))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1010101011000011",
+	lut_mask => "0000000111111110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[1]~1_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|transitoryC[1]~0_combout\,
+	dataa => \b[2]~input_o\,
+	datab => \b[1]~input_o\,
+	datac => \b[0]~input_o\,
+	datad => \b[3]~input_o\,
+	combout => \CLA_4bit_inst1|transitorySignal\(3));
+
+-- Location: LCCOMB_X11_Y1_N24
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((!\CLA_4bit_inst1|transitorySignal\(3))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101000001111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|transitorySignal\(3),
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X5_Y42_N18
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X10_Y1_N6
+\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N2
-\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N22
-\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N16
-\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\ = (!\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & !\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000000000110011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N18
-\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1_combout\ = (!\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\) # (!\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1_combout\);
-
--- Location: LCCOMB_X5_Y43_N18
-\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\ = (\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1_combout\ & ((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- (!\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\)) # (!\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\) # (!\lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0010101000000010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~1_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\);
-
--- Location: LCCOMB_X5_Y43_N12
-\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\ = (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\) # (\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\)))) # (!\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- (((\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\) # (\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\)) # (!\lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111011101110001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\);
-
--- Location: LCCOMB_X5_Y43_N10
-\CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\ = (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\)) # (!\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\) # 
--- (!\lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N20
-\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\ = (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\)) # (!\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\) # 
--- (!\lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X5_Y43_N2
-\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\ = (\lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\)) # (!\lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X5_Y43_N4
-\CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\ = (\lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\)) # (!\lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\) # 
--- (!\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N30
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1_combout\ $ (!\CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[0]~1_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N18
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N24
-\CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0_combout\ = \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N26
-\lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[0]~input_o\) # (!\b[3]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datab => \b[3]~input_o\,
-	datac => \a[0]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N14
-\lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit6|dff_inst|dff_inst6|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N28
-\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2_combout\ = \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit5|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X5_Y43_N30
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2_combout\ $ (!\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[2]~2_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N16
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N24
-\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1_combout\ = \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit5|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X5_Y43_N24
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1_combout\ $ (((!\CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[1]~1_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N8
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y36_N6
-\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N24
-\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y36_N26
-\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010111110101111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	datac => \GClock~input_o\,
-	combout => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N16
-\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N22
-\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N8
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0_combout\ $ (((!\CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N26
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N16
-\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\ = (!\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & !\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000000000001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N30
-\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1_combout\ = (!\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # (!\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1_combout\);
-
--- Location: LCCOMB_X3_Y36_N28
-\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N30
-\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y44_N0
-\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1_combout\ = \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit5|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1_combout\);
-
--- Location: LCCOMB_X4_Y44_N26
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1_combout\ $ (!\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[2]~1_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[2]~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y44_N30
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N10
-\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N26
-\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N26
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\ = \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (((\CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\) # 
--- ((!\lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & !\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101101001011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit5|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|transitoryC[1]~2_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\);
-
--- Location: LCCOMB_X1_Y43_N8
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (((!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\);
-
--- Location: LCCOMB_X1_Y43_N2
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
+-- \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4192,431 +1015,50 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X4_Y43_N12
-\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X11_Y1_N16
+\CLA_4bit_inst0|transitorySignal[3]\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\ = (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\)) # (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\) # 
--- (!\lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
+-- \CLA_4bit_inst0|transitorySignal\(3) = \a[3]~input_o\ $ (((\a[1]~input_o\) # ((\a[0]~input_o\) # (\a[2]~input_o\))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0111011100010001",
+	lut_mask => "0011001100110110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit6|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\);
+	dataa => \a[1]~input_o\,
+	datab => \a[3]~input_o\,
+	datac => \a[0]~input_o\,
+	datad => \a[2]~input_o\,
+	combout => \CLA_4bit_inst0|transitorySignal\(3));
 
--- Location: LCCOMB_X4_Y43_N2
-\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X9_Y1_N26
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\ = (\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\)) # (!\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (!\CLA_4bit_inst0|transitorySignal\(3)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0011111100000011",
+	lut_mask => "1111000001010101",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X4_Y43_N24
-\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\ = (\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1_combout\ & ((\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\)) # (!\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\) # (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0010101000000010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~1_combout\,
-	datab => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\);
-
--- Location: LCCOMB_X4_Y43_N10
-\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\ = (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & (!\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\) # (\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\)))) # (!\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- (((\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\) # (\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\)) # (!\lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111011101110001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\);
-
--- Location: LCCOMB_X4_Y43_N0
-\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\ = (\lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\)) # (!\lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\) # 
--- (!\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111100000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N10
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0_combout\ $ (!\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[0]~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\,
+	dataa => \CLA_4bit_inst0|transitorySignal\(3),
+	datac => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X1_Y44_N18
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X9_Y1_N12
+\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N12
-\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N20
-\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N6
-\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0_combout\ = \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit6|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N6
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0_combout\ $ (!\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[1]~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[1]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N0
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N12
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (((\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # (!\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\))) # (!\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- (!\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\ & \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0110010110100110",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N22
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010001110101100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\,
-	datab => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\);
-
--- Location: LCCOMB_X1_Y44_N24
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N16
-\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2_combout\ = \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X3_Y43_N26
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\ $ ((!\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[2]~2_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N14
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y36_N12
-\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X4_Y36_N20
-\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N6
-\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0_combout\ = (!\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\) # (!\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0_combout\);
-
--- Location: LCCOMB_X4_Y43_N6
-\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\ = (\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0_combout\ & ((\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- (!\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\)) # (!\lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\) # (!\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111000000010000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X4_Y43_N26
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3_combout\ = \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (((\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\) # 
--- ((!\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & !\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011001111001001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3_combout\);
-
--- Location: LCCOMB_X4_Y43_N8
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (((!\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\);
-
--- Location: LCCOMB_X1_Y43_N12
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4624,130 +1066,298 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|masterLatch|int_q~2_combout\,
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X3_Y36_N10
-\lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X10_Y1_N0
+\CLA_4bit_inst2|transitorySignal[3]~5\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
+-- \CLA_4bit_inst2|transitorySignal[3]~5_combout\ = (\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (((\a[3]~input_o\ & !\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))) # 
+-- (!\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\b[3]~input_o\ $ (((\a[3]~input_o\ & !\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1111111100001111",
+	lut_mask => "0100010010110100",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
+	dataa => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datab => \b[3]~input_o\,
+	datac => \a[3]~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	combout => \CLA_4bit_inst2|transitorySignal[3]~5_combout\);
+
+-- Location: LCCOMB_X10_Y1_N22
+\CLA_4bit_inst2|transitorySignal[3]\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|transitorySignal\(3) = \CLA_4bit_inst2|transitorySignal[3]~5_combout\ $ (((\mux_2to1_4bit_selA|d_out[2]~2_combout\ & ((\CLA_4bit_inst2|transitoryC[2]~0_combout\) # (!\mux_2to1_4bit_selB|d_out[2]~2_combout\))) # 
+-- (!\mux_2to1_4bit_selA|d_out[2]~2_combout\ & (!\mux_2to1_4bit_selB|d_out[2]~2_combout\ & \CLA_4bit_inst2|transitoryC[2]~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0100110110110010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \mux_2to1_4bit_selA|d_out[2]~2_combout\,
+	datab => \mux_2to1_4bit_selB|d_out[2]~2_combout\,
+	datac => \CLA_4bit_inst2|transitoryC[2]~0_combout\,
+	datad => \CLA_4bit_inst2|transitorySignal[3]~5_combout\,
+	combout => \CLA_4bit_inst2|transitorySignal\(3));
+
+-- Location: LCCOMB_X10_Y1_N8
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\CLA_4bit_inst2|transitorySignal\(3))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100110011110000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|transitorySignal\(3),
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X10_Y1_N24
+\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X10_Y1_N28
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\ = (\b[3]~input_o\ & ((\CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))) # (!\b[3]~input_o\ & (\b[2]~input_o\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111110000110000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \b[3]~input_o\,
+	datac => \b[2]~input_o\,
+	datad => \CLA_4bit_inst1|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\);
+
+-- Location: LCCOMB_X10_Y1_N4
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~3\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\ = (\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\b[3]~input_o\ $ 
+-- (\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\)))) # (!\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\ & 
+-- ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))) # (!\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\ & (\b[3]~input_o\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0100110010001010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \b[3]~input_o\,
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\);
+
+-- Location: LCCOMB_X10_Y1_N10
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~2\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\ = (\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (((\b[3]~input_o\ & \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)) # 
+-- (!\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\))) # (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\b[3]~input_o\ & (\CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
+-- !\Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1000000011101100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \b[3]~input_o\,
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst1|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~1_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\);
+
+-- Location: LCCOMB_X10_Y1_N2
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~4\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~4_combout\ = (\Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\ & (\Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\ & 
+-- ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\) # (\Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\)))) # (!\Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\ & 
+-- ((\Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\) # ((\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & \Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111010011010000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datac => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~3_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~2_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~4_combout\);
+
+-- Location: LCCOMB_X10_Y1_N12
+\Comparator_4bit_inst|dff_inst|masterLatch|int_q~5\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\Comparator_4bit_inst|dff_inst|masterLatch|int_q~4_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010111110100000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\,
+	datac => \GClock~inputclkctrl_outclk\,
+	datad => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~4_combout\,
+	combout => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\);
+
+-- Location: LCCOMB_X9_Y1_N24
+\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \Comparator_4bit_inst|dff_inst|masterLatch|int_q~5_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N14
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ $ ((!\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010011001",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N12
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010101010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N22
+\counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # ((\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011101110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N0
+\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N16
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (!\GClock~input_o\ & (\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ 
+-- (((\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000010100000110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
 	datac => \GClock~input_o\,
-	datad => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\);
+	datad => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X3_Y36_N4
-\lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X5_Y1_N18
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\ = (!\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ & 
+-- ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\) # (!\GClock~input_o\)))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1111110000001100",
+	lut_mask => "0000000011001111",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+	datab => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\,
+	datac => \GClock~input_o\,
+	datad => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\);
 
--- Location: LCCOMB_X2_Y36_N6
-\lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X5_Y1_N2
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ = (\lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N8
-\lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N18
-\lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ = (\lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N4
-\lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N0
-\lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[3]~input_o\)) # 
--- (!\a[0]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[0]~input_o\,
-	datab => \lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \b[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X10_Y43_N14
-\lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4755,34 +1365,86 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|masterLatch|int_q~1_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N22
-\lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X5_Y1_N4
+\counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[2]~input_o\)) # 
--- (!\b[1]~input_o\)))
+-- \counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\) # ((\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "1111000001110111",
+	lut_mask => "1111000011101110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \b[1]~input_o\,
-	datab => \a[2]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	dataa => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\);
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N16
-\lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X5_Y1_N10
+\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+-- \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010101010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N20
+\counter_4bit_inst|CLA_4bit_inst|transitorySignal[2]\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|transitorySignal\(2) = \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (((\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\) # 
+-- ((\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000111100011110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|transitorySignal\(2));
+
+-- Location: LCCOMB_X5_Y1_N30
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (!\counter_4bit_inst|CLA_4bit_inst|transitorySignal\(2)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000000110011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \counter_4bit_inst|CLA_4bit_inst|transitorySignal\(2),
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N24
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4790,16 +1452,412 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N6
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X5_Y1_N26
+\counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\))))
+-- \counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (((\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\) # (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N28
+\counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N8
+\counter_4bit_inst|CLA_4bit_inst|transitoryC~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|transitoryC~0_combout\ = (\counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\) # ((\counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\) # 
+-- ((\counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\) # (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111111111111110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|transitoryC~0_combout\);
+
+-- Location: LCCOMB_X5_Y1_N6
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (!\counter_4bit_inst|CLA_4bit_inst|transitoryC~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|transitoryC~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X6_Y1_N0
+\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # 
+-- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X6_Y1_N26
+\counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (((\counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\) # (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011111100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datab => \counter_4bit_inst|CLA_4bit_inst|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X6_Y1_N24
+\counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \counter_4bit_inst|register_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \counter_4bit_inst|register_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N30
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((!\mux_2to1_4bit_selA|d_out[0]~0_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101000001111",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N12
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000010101010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N28
+\mux_2to1_4bit_Remainder|d_out[0]~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[0]~0_combout\ = (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & ((\mux_2to1_4bit_selA|d_out[0]~0_combout\))) # (!\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & 
+-- (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000001010101",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst2|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_Remainder|d_out[0]~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N28
+\mux_2to1_4bit_Remainder|d_out[0]~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[0]~1_combout\ = (\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (\mux_2to1_4bit_Remainder|d_out[0]~0_combout\ & (\b[3]~input_o\ $ (!\a[3]~input_o\)))) # 
+-- (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\mux_2to1_4bit_Remainder|d_out[0]~0_combout\) # (\b[3]~input_o\ $ (\a[3]~input_o\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1101000101110100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst3|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
+	datab => \b[3]~input_o\,
+	datac => \mux_2to1_4bit_Remainder|d_out[0]~0_combout\,
+	datad => \a[3]~input_o\,
+	combout => \mux_2to1_4bit_Remainder|d_out[0]~1_combout\);
+
+-- Location: LCCOMB_X9_Y1_N8
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\mux_2to1_4bit_selA|d_out[1]~1_combout\ $ (!\mux_2to1_4bit_selA|d_out[0]~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1010101011000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datab => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N18
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000011001100",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X9_Y1_N10
+\mux_2to1_4bit_Remainder|d_out[1]~2\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[1]~2_combout\ = (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & ((\mux_2to1_4bit_selA|d_out[1]~1_combout\))) # (!\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & 
+-- (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1111000000110011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst2|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	datad => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_Remainder|d_out[1]~2_combout\);
+
+-- Location: LCCOMB_X9_Y1_N20
+\mux_2to1_4bit_Remainder|d_out[1]~3\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[1]~3_combout\ = (\b[3]~input_o\ & ((\a[3]~input_o\ & ((\mux_2to1_4bit_Remainder|d_out[1]~2_combout\))) # (!\a[3]~input_o\ & (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))) # (!\b[3]~input_o\ & 
+-- ((\a[3]~input_o\ & (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)) # (!\a[3]~input_o\ & ((\mux_2to1_4bit_Remainder|d_out[1]~2_combout\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1011011100010010",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \b[3]~input_o\,
+	datab => \CLA_4bit_inst3|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
+	datac => \a[3]~input_o\,
+	datad => \mux_2to1_4bit_Remainder|d_out[1]~2_combout\,
+	combout => \mux_2to1_4bit_Remainder|d_out[1]~3_combout\);
+
+-- Location: LCCOMB_X8_Y1_N10
+\mux_2to1_4bit_Remainder|d_out[2]~4\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[2]~4_combout\ = (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & ((\mux_2to1_4bit_selA|d_out[2]~2_combout\))) # (!\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & 
+-- (!\CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100111100000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst2|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \mux_2to1_4bit_selA|d_out[2]~2_combout\,
+	combout => \mux_2to1_4bit_Remainder|d_out[2]~4_combout\);
+
+-- Location: LCCOMB_X8_Y1_N0
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (!\GClock~input_o\ & (\mux_2to1_4bit_selA|d_out[2]~2_combout\ $ (((\mux_2to1_4bit_selA|d_out[0]~0_combout\) # (\mux_2to1_4bit_selA|d_out[1]~1_combout\)))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000000100001110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datab => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	datac => \GClock~input_o\,
+	datad => \mux_2to1_4bit_selA|d_out[2]~2_combout\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N18
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\ = (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ & ((\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\) # (!\GClock~input_o\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0011001100000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
+	datac => \GClock~input_o\,
+	datad => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\);
+
+-- Location: LCCOMB_X8_Y1_N26
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1100110011110000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|masterLatch|int_q~1_combout\,
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \GClock~inputclkctrl_outclk\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N20
+\mux_2to1_4bit_Remainder|d_out[2]~5\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[2]~5_combout\ = (\mux_2to1_4bit_Remainder|d_out[2]~4_combout\ & ((\a[3]~input_o\ $ (!\b[3]~input_o\)) # (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))) # 
+-- (!\mux_2to1_4bit_Remainder|d_out[2]~4_combout\ & (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (\a[3]~input_o\ $ (\b[3]~input_o\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "1000101100101110",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \mux_2to1_4bit_Remainder|d_out[2]~4_combout\,
+	datab => \a[3]~input_o\,
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
+	datad => \b[3]~input_o\,
+	combout => \mux_2to1_4bit_Remainder|d_out[2]~5_combout\);
+
+-- Location: LCCOMB_X9_Y1_N2
+\mux_2to1_4bit_Remainder|d_out[3]~6\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_Remainder|d_out[3]~6_combout\ = (\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & (!\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\a[3]~input_o\))) # 
+-- (!\Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\ & (((!\CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0100000001110011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	dataa => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datab => \Comparator_4bit_inst|dff_inst|slaveLatch|int_q~0_combout\,
+	datac => \a[3]~input_o\,
+	datad => \CLA_4bit_inst2|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_Remainder|d_out[3]~6_combout\);
+
+-- Location: LCCOMB_X9_Y1_N0
+\mux_2to1_4bit_selA|and2[3]\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \mux_2to1_4bit_selA|and2\(3) = (\a[3]~input_o\ & !\CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000000011110000",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datac => \a[3]~input_o\,
+	datad => \CLA_4bit_inst0|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	combout => \mux_2to1_4bit_selA|and2\(3));
+
+-- Location: LCCOMB_X8_Y1_N4
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (!\mux_2to1_4bit_selA|d_out[1]~1_combout\ & (!\mux_2to1_4bit_selA|d_out[0]~0_combout\ & !\mux_2to1_4bit_selA|d_out[2]~2_combout\))
+
+-- pragma translate_off
+GENERIC MAP (
+	lut_mask => "0000000000000011",
+	sum_lutc_input => "datac")
+-- pragma translate_on
+PORT MAP (
+	datab => \mux_2to1_4bit_selA|d_out[1]~1_combout\,
+	datac => \mux_2to1_4bit_selA|d_out[0]~0_combout\,
+	datad => \mux_2to1_4bit_selA|d_out[2]~2_combout\,
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
+
+-- Location: LCCOMB_X8_Y1_N22
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1\ : cycloneive_lcell_comb
+-- Equation(s):
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- ((\mux_2to1_4bit_selA|and2\(3) $ (\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4807,51 +1865,17 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datab => \lshift_8bit1|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|transitorySignal[3]~4_combout\,
+	dataa => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\,
+	datab => \mux_2to1_4bit_selA|and2\(3),
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\);
 
--- Location: LCCOMB_X10_Y43_N4
-\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X8_Y1_N8
+\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X9_Y43_N16
-\lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[2]~input_o\) # (!\a[1]~input_o\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datab => \a[1]~input_o\,
-	datac => \b[2]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X10_Y43_N18
-\lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
+-- \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
+-- (\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -4859,1496 +1883,30 @@ GENERIC MAP (
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datab => \lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst3|masterLatch|int_q~0_combout\,
+	datab => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|masterLatch|int_q~1_combout\,
 	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
+	combout => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
 
--- Location: LCCOMB_X10_Y43_N8
-\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3\ : cycloneive_lcell_comb
+-- Location: LCCOMB_X8_Y1_N2
+\mux_2to1_4bit_Remainder|d_out[3]~7\ : cycloneive_lcell_comb
 -- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3_combout\ = \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\)
+-- \mux_2to1_4bit_Remainder|d_out[3]~7_combout\ = (\mux_2to1_4bit_Remainder|d_out[3]~6_combout\ & ((\a[3]~input_o\ $ (!\b[3]~input_o\)) # (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))) # 
+-- (!\mux_2to1_4bit_Remainder|d_out[3]~6_combout\ & (!\CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\a[3]~input_o\ $ (\b[3]~input_o\))))
 
 -- pragma translate_off
 GENERIC MAP (
-	lut_mask => "0000111111110000",
+	lut_mask => "1000101100101110",
 	sum_lutc_input => "datac")
 -- pragma translate_on
 PORT MAP (
-	datac => \CLA_8bit_inst1|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X11_Y43_N26
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3_combout\ $ ((!\CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_lower|transitorySignal[3]~3_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|CarryOut~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X11_Y43_N24
-\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X10_Y43_N24
-\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3_combout\ = \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit3|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X6_Y42_N24
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3_combout\ $ ((!\CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_lower|transitorySignal[3]~3_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|CarryOut~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N18
-\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N28
-\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3_combout\ = \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit4|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst3|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X2_Y42_N14
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\ $ ((!\CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010011001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|CarryOut~0_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_lower|transitorySignal[3]~3_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N10
-\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N16
-\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2_combout\ = \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit5|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst4|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2_combout\);
-
--- Location: LCCOMB_X2_Y43_N2
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2_combout\ $ (((!\CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|transitorySignal[3]~2_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N2
-\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y36_N18
-\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\ = (\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111111100001111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \GClock~input_o\,
-	datad => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X3_Y36_N0
-\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N26
-\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3_combout\ = \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit6|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X3_Y43_N4
-\CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\ = (\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\)) # (!\lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\) # 
--- (!\CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111011100010001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N20
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3_combout\ $ (((!\CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|transitorySignal[3]~3_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N20
-\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N18
-\CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1_combout\ = \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit7|dff_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1_combout\);
-
--- Location: LCCOMB_X1_Y43_N24
-\CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\ = (!\lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\ & !\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000001100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\);
-
--- Location: LCCOMB_X4_Y43_N20
-\CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\ = (\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- ((\CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\) # (\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\)))) # (!\CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & 
--- (((\CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\) # (\CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\)) # (!\lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0111011101110001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit7|dff_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|transitoryG[1]~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N0
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1_combout\ $ (((!\CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|transitorySignal[3]~1_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N14
-\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N28
-\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N24
-\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111110000001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N2
-\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N30
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0_combout\ $ (!\CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_lower|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N12
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y42_N24
-\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0_combout\ = \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0_combout\);
-
--- Location: LCCOMB_X4_Y43_N30
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0_combout\ $ (!\CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010110010100011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[0]~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N4
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y36_N6
-\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X4_Y36_N22
-\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111101000001010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_sSignal~combout\,
-	combout => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X3_Y43_N18
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\ = \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ $ (((\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\) # 
--- ((!\lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & !\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101001",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datab => \lshift_8bit6|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[1]~2_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\);
-
--- Location: LCCOMB_X3_Y43_N28
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ $ (((!\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100101011000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~3_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\);
-
--- Location: LCCOMB_X4_Y42_N24
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~2_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N6
-\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1_combout\ = \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1_combout\);
-
--- Location: LCCOMB_X4_Y43_N14
-\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\ = (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & (!\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\)) # (!\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\) # 
--- (!\lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit7|dff_inst|dff_inst4|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\);
-
--- Location: LCCOMB_X4_Y43_N4
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1_combout\ $ (((!\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[1]~1_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N26
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y36_N30
-\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\ = (\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\) # (!\GClock~input_o\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011111111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~input_o\,
-	combout => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\);
-
--- Location: LCCOMB_X2_Y36_N14
-\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_sSignal~combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N12
-\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1_combout\ = \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ $ (\lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011110000111100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit6|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1_combout\);
-
--- Location: LCCOMB_X3_Y43_N2
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1_combout\ $ (((!\CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[2]~1_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|transitoryC[2]~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y43_N24
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N4
-\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2_combout\ = \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2_combout\);
-
--- Location: LCCOMB_X4_Y43_N16
-\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\ = (\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\ & 
--- !\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)) # (!\lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\) # 
--- (!\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011000011110011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit7|dff_inst|dff_inst5|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[1]~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\);
-
--- Location: LCCOMB_X4_Y43_N22
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2_combout\ $ (!\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010110010100011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[2]~2_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N20
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N4
-\lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[0]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \a[0]~input_o\,
-	datac => \lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N22
-\lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit7|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N4
-\lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[1]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datac => \a[1]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N12
-\lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit6|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N2
-\lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[3]~input_o\)) # 
--- (!\a[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[3]~input_o\,
-	datab => \lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datac => \b[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N22
-\lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit3|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datac => \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N26
-\lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\b[1]~input_o\)) # 
--- (!\a[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \a[3]~input_o\,
-	datab => \b[1]~input_o\,
-	datac => \lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N16
-\lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit1|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N12
-\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1_combout\ = \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ $ (((\b[0]~input_o\ & \a[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101111110100000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[0]~input_o\,
-	datac => \a[3]~input_o\,
-	datad => \lshift_8bit1|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1_combout\);
-
--- Location: LCCOMB_X6_Y44_N22
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1_combout\ $ ((\CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001100110",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|transitorySignal[3]~1_combout\,
-	datab => \CLA_8bit_inst1|CLA_4bit_upper|CarryOut~2_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N8
-\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N14
-\lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[2]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110001011111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[2]~input_o\,
-	datab => \lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datac => \a[3]~input_o\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N6
-\lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit2|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y44_N26
-\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3_combout\ = \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst1|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit2|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X6_Y44_N0
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\ $ (((!\CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|CarryOut~0_combout\,
-	datab => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|transitorySignal[3]~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X6_Y42_N6
-\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N28
-\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3_combout\ = \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit3|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst2|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X2_Y42_N26
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3_combout\ $ (!\CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst3|CLA_4bit_upper|transitorySignal[3]~3_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N30
-\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N4
-\lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[3]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
+	dataa => \mux_2to1_4bit_Remainder|d_out[3]~6_combout\,
 	datab => \a[3]~input_o\,
-	datac => \lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
+	datac => \CLA_4bit_inst3|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
+	datad => \b[3]~input_o\,
+	combout => \mux_2to1_4bit_Remainder|d_out[3]~7_combout\);
 
--- Location: LCCOMB_X2_Y42_N24
-\lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit4|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X2_Y42_N12
-\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3_combout\ = \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst3|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit4|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X1_Y42_N8
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3_combout\ $ (((!\CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|transitorySignal[3]~3_combout\,
-	datab => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y42_N30
-\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N26
-\lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\)))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & (((!\a[2]~input_o\)) # 
--- (!\b[3]~input_o\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000001110111",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \b[3]~input_o\,
-	datab => \a[2]~input_o\,
-	datac => \lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N24
-\lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- (\lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit5|dff_inst|dff_inst7|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N14
-\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3_combout\ = \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ $ (\lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \CLA_8bit_inst4|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \lshift_8bit5|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X5_Y43_N26
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\ $ (!\CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3_combout\))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|CarryOut~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|transitorySignal[3]~3_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N18
-\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000011001100",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y44_N30
-\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2_combout\ = \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0101010110101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \lshift_8bit6|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst5|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2_combout\);
-
--- Location: LCCOMB_X5_Y43_N8
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2_combout\ $ (((!\CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100110010100101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|transitorySignal[3]~2_combout\,
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|CarryOut~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X5_Y42_N6
-\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & ((\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\))) # (!GLOBAL(\GClock~inputclkctrl_outclk\) 
--- & (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1111000010101010",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X4_Y42_N0
-\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3_combout\ = \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\ $ (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0000111111110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datac => \lshift_8bit7|dff_inst|dff_inst7|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3_combout\);
-
--- Location: LCCOMB_X4_Y43_N18
-\CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\ = (\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (!\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\ & 
--- \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\)) # (!\CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & ((\CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\) # 
--- (!\lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "0011111100000011",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	datab => \CLA_8bit_inst6|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datac => \lshift_8bit7|dff_inst|dff_inst6|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_upper|transitoryC[2]~1_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\);
-
--- Location: LCCOMB_X4_Y43_N28
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)))) # 
--- (!GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3_combout\ $ (((!\CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\)))))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1100101011000101",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|transitorySignal[3]~3_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \GClock~inputclkctrl_outclk\,
-	datad => \CLA_8bit_inst7|CLA_4bit_upper|CarryOut~0_combout\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y43_N22
-\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ = (GLOBAL(\GClock~inputclkctrl_outclk\) & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\)) # (!GLOBAL(\GClock~inputclkctrl_outclk\) & 
--- ((\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101011110000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|masterLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \GClock~inputclkctrl_outclk\,
-	combout => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N12
-\zeroOut~0\ : cycloneive_lcell_comb
--- Equation(s):
--- \zeroOut~0_combout\ = (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & 
--- (\CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1000000000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_lower|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	combout => \zeroOut~0_combout\);
-
--- Location: LCCOMB_X1_Y44_N2
-\zeroOut~1\ : cycloneive_lcell_comb
--- Equation(s):
--- \zeroOut~1_combout\ = (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\ & (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\ & 
--- (\CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\ & \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\)))
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1000000000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst3|slaveLatch|int_q~0_combout\,
-	datab => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst0|slaveLatch|int_q~0_combout\,
-	datac => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst1|slaveLatch|int_q~0_combout\,
-	datad => \CLA_8bit_inst7|CLA_4bit_upper|dff_8bit_inst|dff_inst2|slaveLatch|int_q~0_combout\,
-	combout => \zeroOut~1_combout\);
-
--- Location: LCCOMB_X1_Y44_N0
-\zeroOut~2\ : cycloneive_lcell_comb
--- Equation(s):
--- \zeroOut~2_combout\ = (\zeroOut~0_combout\ & \zeroOut~1_combout\)
-
--- pragma translate_off
-GENERIC MAP (
-	lut_mask => "1010101000000000",
-	sum_lutc_input => "datac")
--- pragma translate_on
-PORT MAP (
-	dataa => \zeroOut~0_combout\,
-	datad => \zeroOut~1_combout\,
-	combout => \zeroOut~2_combout\);
-
--- Location: IOIBUF_X1_Y0_N15
+-- Location: IOIBUF_X42_Y73_N8
 \GReset~input\ : cycloneive_io_ibuf
 -- pragma translate_off
 GENERIC MAP (

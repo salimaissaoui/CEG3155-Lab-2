@@ -1,0 +1,23 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity AbsValue_4bit is
+    Port (
+        input_vector : in  STD_LOGIC_VECTOR(3 downto 0);  -- 8-bit input
+        abs_value    : out STD_LOGIC_VECTOR(3 downto 0)   -- Output for absolute value
+    );
+end AbsValue;
+
+architecture Structural of AbsValue is
+    signal is_negative : STD_LOGIC;                      -- Signal to indicate negativity
+    signal neg_vector  : STD_LOGIC_VECTOR(7 downto 0);   -- Negated vector for output
+begin
+
+    is_negative <= input_vector(3);
+
+    neg_vector <= not input_vector + "0001"; 
+	 
+    abs_value <= (others => '0') when is_negative = '1' else input_vector;
+
+end Structural;

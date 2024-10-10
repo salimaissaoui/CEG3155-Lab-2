@@ -1,0 +1,10 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY Divider_4bit IS
+	PORT (
+		a,b : IN STD_LOGIC_VECTOR(3 downto 0);
+		GClock, GReset : IN STD_LOGIC;
+		Sum : OUT STD_LOGIC_VECTOR(7 downto 0);
+		CarryOut, zeroOut, OverFlowOut : OUT STD_LOGIC
+	);

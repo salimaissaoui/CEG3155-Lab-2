@@ -1,6 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-USE ieee.numeric_std.ALL;  -- To support integer operations
+USE ieee.numeric_std.ALL;  
 
 ENTITY lshift_8bit IS
     PORT(
